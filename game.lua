@@ -9,8 +9,8 @@ function game.load()
     
     playerDirection = 1
 
-    clickSound = love.audio.newSource("click.wav", "static")
-    music = love.audio.newSource("music.mp3", "stream")
+    clickSound = love.audio.newSource("osu-hit-sound.mp3", "static")
+    music = love.audio.newSource("song.mp3", "stream")
     music:play()
 
     beatmap = {
