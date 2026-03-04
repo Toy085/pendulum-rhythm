@@ -54,14 +54,38 @@ function game.keypressed(key)
         state = "menu"
     end
     if key == "space" then
-        angleAtLastFlip = angle
-        songTimeAtLastFlip = music:tell()
+        local currentTime = music:tell()
+        local hitSomething = false
+        local noteIndex = -1
 
-        playerDirection = -playerDirection
+        for i, note in ipairs(beatmap) do
+            local timeDifference = math.abs(currentTime - note.time)
+            if timeDifference <= hitWindow then
+                hitSomething = true
+                noteIndex = i
+                break
+            end
+        end
 
-        local sound = clickSound:clone()
-        sound:play()
-        playerCircleSize = 25
+        if hitSomething then
+            table.remove(beatmap, noteIndex)
+        
+            angleAtLastFlip = angle
+            songTimeAtLastFlip = music:tell()
+
+            playerDirection = -playerDirection
+
+            score = score + 100
+            combo = combo + 1
+            lastHitText = "Great!"
+
+            local sound = clickSound:clone()
+            sound:play()
+            playerCircleSize = 25
+        else
+            combo = 0
+            lastHitText = "Too Early!"
+        end
     end
 end
 
@@ -87,7 +111,7 @@ function game.draw()
     love.graphics.setColor(1, 1, 1, 1)
     love.graphics.print("Score: " .. score, 10, 10)
     love.graphics.print("Combo: " .. combo, 10, 30)
-    love.graphics.printf(lastHitText, 0, centerY, love.graphics.getWidth(), "center")
+    love.graphics.printf(lastHitText, 0, centerY - 100, love.graphics.getWidth(), "center")
 
     -- Notes
     love.graphics.setColor(1, 1, 0) -- Yellow notes
