@@ -7,6 +7,7 @@ local selected = 1
 state = "menu" -- Can be "menu", "play", or "edit"
 
 function love.load()
+    love.window.setTitle("Pendulum Rhythm")
     if state == "play" then
         game.load()
     elseif state == "edit" then
@@ -55,6 +56,7 @@ function love.keypressed(key)
 end
 
 function drawMenu()
+    love.window.setTitle("Pendulum Rhythm")
     local width = love.graphics.getWidth()
     local height = love.graphics.getHeight()
 

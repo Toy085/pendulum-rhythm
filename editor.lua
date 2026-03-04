@@ -3,6 +3,7 @@ local editor = {}
 
 function editor.load()
     -- Load editor-specific assets here
+    love.window.setTitle("Pendulum Rhythm - Editor Mode")
 end
 
 function editor.update(dt)

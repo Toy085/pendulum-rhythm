@@ -18,6 +18,7 @@ function game.load()
 
     clickSound = love.audio.newSource("osu-hit-sound.mp3", "static")
     music = love.audio.newSource("song.mp3", "stream")
+    songName = "WeatherGirl - Flavor Foley"
     music:play()
 
     beatmap = {
@@ -42,6 +43,8 @@ function game.load()
     feedbackText = "..."
     feedbackScale = 0
     feedbackAlpha = 0
+
+    love.window.setTitle("Pendulum Rhythm - Playing: " .. songName)
 end
 
 function game.update(dt)
