@@ -188,11 +188,11 @@ function game.draw()
             local ny = centerY + math.sin(noteAngle) * radius
 
             local alpha = 1 - (timeRemaining / 1.5)
-            love.graphics.setColor(1, 1, 0, alpha)
-        
-            love.graphics.circle("fill", nx, ny, 15)
 
-            love.graphics.setColor(0, 0, 0, alpha - 0.25) -- Black text
+            love.graphics.setColor(1, 1, 0, alpha - 0.2)
+            love.graphics.circle("fill", nx, ny, 20)
+
+            love.graphics.setColor(0, 0, 0, alpha) -- Black text
             love.graphics.printf(tostring(i), nx - 15, ny - 10, 30, "center")
             
             love.graphics.setColor(1, 1, 1)
