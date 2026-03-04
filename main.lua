@@ -40,7 +40,7 @@ function love.keypressed(key)
         elseif key == "down" then
             selected = selected + 1
             if selected > #menuOptions then selected = 1 end
-        elseif key == "return" then
+        elseif key == "return" or key == "space" then
             handleMenuSelection()
         end
 
