@@ -21,13 +21,21 @@ function game.load()
     music:play()
 
     beatmap = {
-        {time = 5.0},
-        {time = 7.5},
+        {time = 5.8},
+        {time = 7.0},
+        {time = 8.5},
+        {time = 9.5},
+        {time = 10.0},
+        {time = 10.25},
+        {time = 11.0},
+        {time = 12.0},
+        {time = 13.0},
+        {time = 15.0},
     }
 
     score = 0
     combo = 0
-    hitWindow = 0.3
+    hitWindow = 0.1
 
     feedbackText = "..."
     feedbackScale = 0
