@@ -21,6 +21,8 @@ function game.load()
     music:play()
 
     beatmap = {
+        {time = 4.6},
+        {time = 5.0},
         {time = 5.8},
         {time = 7.0},
         {time = 8.5},
@@ -170,22 +172,34 @@ function game.draw()
     end
 
     -- Notes
-    love.graphics.setColor(1, 1, 0) -- Yellow notes
+    local tempDir = playerDirection
+    local tempTime = songTimeAtLastFlip
+    local tempAngle = angleAtLastFlip
+
     for i, note in ipairs(beatmap) do
-        local timeRemaining = note.time - music:tell()
+        local currentTime = music:tell()
+        local timeRemaining = note.time - currentTime
+
+        local noteAngle = tempAngle + ((note.time - tempTime) * playerSpeed * tempDir)
     
         -- Draw note if it is coming soon (1.5 seconds)
         if timeRemaining > 0 and timeRemaining < 1.5 then
-            local noteAngle = angle + (timeRemaining * playerSpeed * playerDirection)
             local nx = centerX + math.cos(noteAngle) * radius
             local ny = centerY + math.sin(noteAngle) * radius
 
             local alpha = 1 - (timeRemaining / 1.5)
             love.graphics.setColor(1, 1, 0, alpha)
         
-            love.graphics.circle("fill", nx, ny, 10)
+            love.graphics.circle("fill", nx, ny, 15)
+
+            love.graphics.setColor(0, 0, 0, alpha - 0.25) -- Black text
+            love.graphics.printf(tostring(i), nx - 15, ny - 10, 30, "center")
+            
             love.graphics.setColor(1, 1, 1)
         end
+        tempAngle = noteAngle
+        tempTime = note.time
+        tempDir = -tempDir
     end
 end
 return game
