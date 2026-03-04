@@ -8,7 +8,7 @@ function game.load()
 
     radius = 200
     angle = 0
-    speed = 1.5
+    playerSpeed = 1.5
     
     playerDirection = 1
 
@@ -27,17 +27,31 @@ function game.load()
 end
 
 function game.update(dt)
-    -- Update game logic here
+    angle = angle + playerSpeed * dt * playerDirection
+    
+    angle = angle % (math.pi * 2)
+
+    px = centerX + math.cos(angle) * radius
+    py = centerY + math.sin(angle) * radius
 end
 
 function game.keypressed(key)
-    -- Handle game-specific key presses here
+    if key == "escape" then
+        state = "menu"
+    end
+    if key == "space" then
+        playerDirection = -playerDirection
+        local sound = clickSound:clone()
+        sound:play()
+    end
 end
 
 function game.draw()
+    love.graphics.setColor(1, 1, 1)
     love.graphics.setLineWidth(2)
     love.graphics.circle("line", centerX, centerY, radius)
 
-    love.graphics.circle("fill", px, py, 30)
+    love.graphics.setColor(1, 0, 0, 0.85)
+    love.graphics.circle("fill", px, py, 20)
 end
 return game
