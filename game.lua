@@ -80,5 +80,21 @@ function game.draw()
     love.graphics.print("Score: " .. score, 10, 10)
     love.graphics.print("Combo: " .. combo, 10, 30)
     love.graphics.printf(lastHitText, 0, centerY, love.graphics.getWidth(), "center")
+
+    -- Notes
+    love.graphics.setColor(1, 1, 0) -- Yellow notes
+    for i, note in ipairs(beatmap) do
+        local timeRemaining = note.time - music:tell()
+    
+        -- Draw note if it is coming soon (1.5 seconds)
+        if timeRemaining > 0 and timeRemaining < 1.5 then
+            local noteAngle = angle + (timeRemaining * playerSpeed * playerDirection)
+            local nx = centerX + math.cos(noteAngle) * radius
+            local ny = centerY + math.sin(noteAngle) * radius
+        
+            love.graphics.circle("fill", nx, ny, 10)
+            love.graphics.setColor(1, 1, 1)
+        end
+    end
 end
 return game
