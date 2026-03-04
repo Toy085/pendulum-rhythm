@@ -119,7 +119,7 @@ function game.draw()
     love.graphics.setColor(1, 1, 1, 1)
     love.graphics.print("Score: " .. score, 10, 10)
     love.graphics.print("Combo: " .. combo, 10, 30)
-    love.graphics.printf(lastHitText, 0, centerY - 100, love.graphics.getWidth(), "center")
+    love.graphics.printf(lastHitText, 0, centerY - 100, centerX * 2, "center")
 
     -- Notes
     love.graphics.setColor(1, 1, 0) -- Yellow notes
