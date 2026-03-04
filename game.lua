@@ -35,6 +35,14 @@ end
 function game.update(dt)
     local currentTime = music:tell()
     local timeSinceFlip = currentTime - songTimeAtLastFlip
+
+    for i = #beatmap, 1, -1 do
+        if currentTime > beatmap[i].time + hitWindow then
+            table.remove(beatmap, i)
+            combo = 0
+            lastHitText = "Miss!"
+        end
+    end
     
     angle = angleAtLastFlip + (timeSinceFlip * playerSpeed * playerDirection)
 
