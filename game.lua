@@ -71,6 +71,7 @@ end
 
 function game.keypressed(key)
     if key == "escape" then
+        if music then music:stop() end
         state = "menu"
     end
     if key == "space" then
@@ -141,7 +142,7 @@ function game.draw()
         local font = love.graphics.getFont()
         local textWidth = centerX * 2
         local textHeight = font:getHeight()
-        
+
         -- printf(text, x, y, limit, align, r, sx, sy, ox, oy)
         love.graphics.printf(feedbackText, 0, centerY - 100, textWidth / feedbackScale, "center", 0, feedbackScale, feedbackScale, 0, textHeight / 2)
     end
