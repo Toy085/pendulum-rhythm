@@ -1,3 +1,4 @@
+local game = require("game")
 local editor = {}
 
 function editor.load()
