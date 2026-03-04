@@ -3,6 +3,9 @@ function game.load()
     centerX = love.graphics.getWidth() / 2
     centerY = love.graphics.getHeight() / 2
 
+    px = 0
+    py = 0
+
     radius = 200
     angle = 0
     speed = 1.5
@@ -32,7 +35,9 @@ function game.keypressed(key)
 end
 
 function game.draw()
-    love.graphics.circle("fill", centerX, centerY, 50)
-    -- Draw game-specific UI and elements here
+    love.graphics.setLineWidth(2)
+    love.graphics.circle("line", centerX, centerY, radius)
+
+    love.graphics.circle("fill", px, py, 30)
 end
 return game
