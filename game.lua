@@ -13,6 +13,9 @@ function game.load()
 
     playerCircleSize = 20
 
+    songTimeAtLastFlip = 0
+    angleAtLastFlip = 0
+
     clickSound = love.audio.newSource("osu-hit-sound.mp3", "static")
     music = love.audio.newSource("song.mp3", "stream")
     music:play()
@@ -30,9 +33,10 @@ function game.load()
 end
 
 function game.update(dt)
-    angle = angle + playerSpeed * dt * playerDirection
+    local currentTime = music:tell()
+    local timeSinceFlip = currentTime - songTimeAtLastFlip
     
-    angle = angle % (math.pi * 2)
+    angle = angleAtLastFlip + (timeSinceFlip * playerSpeed * playerDirection)
 
     px = centerX + math.cos(angle) * radius
     py = centerY + math.sin(angle) * radius
@@ -50,7 +54,11 @@ function game.keypressed(key)
         state = "menu"
     end
     if key == "space" then
+        angleAtLastFlip = angle
+        songTimeAtLastFlip = music:tell()
+
         playerDirection = -playerDirection
+
         local sound = clickSound:clone()
         sound:play()
         playerCircleSize = 25
