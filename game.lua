@@ -91,6 +91,9 @@ function game.draw()
             local noteAngle = angle + (timeRemaining * playerSpeed * playerDirection)
             local nx = centerX + math.cos(noteAngle) * radius
             local ny = centerY + math.sin(noteAngle) * radius
+
+            local alpha = 1 - (timeRemaining / 1.5)
+            love.graphics.setColor(1, 1, 0, alpha)
         
             love.graphics.circle("fill", nx, ny, 10)
             love.graphics.setColor(1, 1, 1)
