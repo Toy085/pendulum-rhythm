@@ -24,6 +24,8 @@ function game.load()
     score = 0
     combo = 0
     hitWindow = 0.3
+
+    lastHitText = "..."
 end
 
 function game.update(dt)
@@ -47,11 +49,27 @@ function game.keypressed(key)
 end
 
 function game.draw()
+    -- Orbit circle
+    love.graphics.setLineWidth(2)
     love.graphics.setColor(1, 1, 1)
     love.graphics.setLineWidth(2)
     love.graphics.circle("line", centerX, centerY, radius)
 
+    -- Player
     love.graphics.setColor(1, 0, 0, 0.85)
     love.graphics.circle("fill", px, py, 20)
+
+    -- Pendulum arm
+    love.graphics.setLineWidth(5)
+    love.graphics.setColor(1, 1, 1, 0.5)
+    love.graphics.line(centerX, centerY, px, py)
+    -- Reset line width
+    love.graphics.setLineWidth(1)
+
+    -- UI
+    love.graphics.setColor(1, 1, 1, 1)
+    love.graphics.print("Score: " .. score, 10, 10)
+    love.graphics.print("Combo: " .. combo, 10, 30)
+    love.graphics.printf(lastHitText, 0, centerY, love.graphics.getWidth(), "center")
 end
 return game
