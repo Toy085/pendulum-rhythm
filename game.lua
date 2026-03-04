@@ -97,6 +97,8 @@ function game.keypressed(key)
         end
 
         if hitSomething then
+            local diff = math.abs(currentTime - beatmap[noteIndex].time)
+
             table.remove(beatmap, noteIndex)
         
             angleAtLastFlip = angle
@@ -104,9 +106,21 @@ function game.keypressed(key)
 
             playerDirection = -playerDirection
 
-            score = score + 100
             combo = combo + 1
-            feedbackText = "Great!"
+            
+            local accuracyBonus = hitWindow / math.max(diff, 0.01)
+            local points = 10 * math.sqrt(combo) * accuracyBonus
+            
+            score = score + math.floor(points)
+
+            if diff < 0.03 then
+                feedbackText = "PERFECT!"
+            elseif diff < 0.06 then
+                feedbackText = "GREAT!"
+            else
+                feedbackText = "OK!"
+            end
+
             feedbackScale = 2.5
             feedbackAlpha = 1
 
