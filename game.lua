@@ -29,7 +29,9 @@ function game.load()
     combo = 0
     hitWindow = 0.3
 
-    lastHitText = "..."
+    feedbackText = "..."
+    feedbackScale = 0
+    feedbackAlpha = 0
 end
 
 function game.update(dt)
@@ -40,7 +42,9 @@ function game.update(dt)
         if currentTime > beatmap[i].time + hitWindow then
             table.remove(beatmap, i)
             combo = 0
-            lastHitText = "Miss!"
+            feedbackText = "Miss!"
+            feedbackScale = 2.5
+            feedbackAlpha = 1
         end
     end
     
@@ -55,6 +59,14 @@ function game.update(dt)
             playerCircleSize = 20
         end
     end
+    if feedbackAlpha > 0 then
+        -- Shrink the scale back toward 1
+        if feedbackScale > 1 then
+            feedbackScale = feedbackScale - dt * 5
+        end
+        -- Fade out the alpha
+        feedbackAlpha = feedbackAlpha - dt * 2 
+    end 
 end
 
 function game.keypressed(key)
@@ -85,14 +97,18 @@ function game.keypressed(key)
 
             score = score + 100
             combo = combo + 1
-            lastHitText = "Great!"
+            feedbackText = "Great!"
+            feedbackScale = 2.5
+            feedbackAlpha = 1
 
             local sound = clickSound:clone()
             sound:play()
             playerCircleSize = 25
         else
             combo = 0
-            lastHitText = "Too Early!"
+            feedbackText = "Too Early!"
+            feedbackScale = 2.5
+            feedbackAlpha = 1
         end
     end
 end
@@ -119,7 +135,16 @@ function game.draw()
     love.graphics.setColor(1, 1, 1, 1)
     love.graphics.print("Score: " .. score, 10, 10)
     love.graphics.print("Combo: " .. combo, 10, 30)
-    love.graphics.printf(lastHitText, 0, centerY - 100, centerX * 2, "center")
+    if feedbackAlpha > 0 then
+        love.graphics.setColor(1, 1, 1, feedbackAlpha)
+        
+        local font = love.graphics.getFont()
+        local textWidth = centerX * 2
+        local textHeight = font:getHeight()
+        
+        -- printf(text, x, y, limit, align, r, sx, sy, ox, oy)
+        love.graphics.printf(feedbackText, 0, centerY - 100, textWidth / feedbackScale, "center", 0, feedbackScale, feedbackScale, 0, textHeight / 2)
+    end
 
     -- Notes
     love.graphics.setColor(1, 1, 0) -- Yellow notes
