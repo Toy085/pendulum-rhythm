@@ -9,8 +9,9 @@ function game.load()
     radius = 200
     angle = 0
     playerSpeed = 1.5
-    
     playerDirection = 1
+
+    playerCircleSize = 20
 
     clickSound = love.audio.newSource("osu-hit-sound.mp3", "static")
     music = love.audio.newSource("song.mp3", "stream")
@@ -35,6 +36,13 @@ function game.update(dt)
 
     px = centerX + math.cos(angle) * radius
     py = centerY + math.sin(angle) * radius
+
+    if playerCircleSize > 20 then
+        playerCircleSize = playerCircleSize - dt * 40
+        if playerCircleSize < 20 then
+            playerCircleSize = 20
+        end
+    end
 end
 
 function game.keypressed(key)
@@ -45,6 +53,7 @@ function game.keypressed(key)
         playerDirection = -playerDirection
         local sound = clickSound:clone()
         sound:play()
+        playerCircleSize = 25
     end
 end
 
@@ -57,7 +66,7 @@ function game.draw()
 
     -- Player
     love.graphics.setColor(1, 0, 0, 0.85)
-    love.graphics.circle("fill", px, py, 20)
+    love.graphics.circle("fill", px, py, playerCircleSize)
 
     -- Pendulum arm
     love.graphics.setLineWidth(5)
