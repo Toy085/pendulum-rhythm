@@ -1,0 +1,26 @@
+# --- LÖVE Specific ---
+# If you package your game as a .love file, you don't need to track the builds
+*.love
+
+# --- OS Specific ---
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# --- AppData / Save Data ---
+# LÖVE saves data in specific folders depending on your OS. 
+# If you keep a local "save" folder for testing, ignore it here.
+/saves/
+*.log
+
+# --- Source Control / Editors ---
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# --- Build Artifacts ---
+# If you use a tool to fuse your game into an .exe or .app
+/build/
+/dist/
+/bin/
