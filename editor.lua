@@ -21,7 +21,23 @@ end
 function editor.draw()
     love.graphics.setColor(1, 1, 1)
     love.graphics.print("Editor Mode - Press 'P' to switch to Play Mode", 10, 10)
-    -- Draw editor-specific UI and elements here
+    
+    -- Orbit circle
+    love.graphics.setLineWidth(2)
+    love.graphics.setColor(1, 1, 1)
+    love.graphics.setLineWidth(2)
+    love.graphics.circle("line", centerX, centerY, radius)
+
+    -- Player
+    love.graphics.setColor(1, 0, 0, 0.85)
+    love.graphics.circle("fill", px, py, playerCircleSize)
+
+    -- Pendulum arm
+    love.graphics.setLineWidth(5)
+    love.graphics.setColor(1, 1, 1, 0.5)
+    love.graphics.line(centerX, centerY, px, py)
+    -- Reset line width
+    love.graphics.setLineWidth(1)
 end
 
 return editor
