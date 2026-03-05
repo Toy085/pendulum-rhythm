@@ -88,7 +88,7 @@ function game.keypressed(key)
         if music then music:stop() end
         state = "menu"
     end
-    if key == "space" then
+    if key == "space" or key == "z" or key == "x" then
         local currentTime = music:tell()
         local hitSomething = false
         local noteIndex = -1
