@@ -106,10 +106,7 @@ function game.keypressed(key)
 
             table.remove(beatmap, noteIndex)
         
-            angleAtLastFlip = angle
-            songTimeAtLastFlip = music:tell()
-
-            playerDirection = -playerDirection
+            flipPlayer()
 
             combo = combo + 1
             
@@ -205,4 +202,12 @@ function game.draw()
         tempDir = -tempDir
     end
 end
+
+function flipPlayer()
+    angleAtLastFlip = angle
+    songTimeAtLastFlip = music:tell()
+
+    playerDirection = -playerDirection
+end
+
 return game
