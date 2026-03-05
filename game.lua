@@ -58,6 +58,7 @@ function game.update(dt)
             feedbackText = "Miss!"
             feedbackScale = 2.5
             feedbackAlpha = 1
+            flipPlayer()
         end
     end
     
