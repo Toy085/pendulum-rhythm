@@ -205,7 +205,9 @@ function game.draw()
         end
         tempAngle = noteAngle
         tempTime = note.time
-        tempDir = -tempDir
+        if note.type == "n" then
+            tempDir = -tempDir
+        end
     end
 end
 
