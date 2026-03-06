@@ -1,6 +1,7 @@
 local game = require("game")
 local editor = {}
 local bm = require("beatmap")
+local isFilePickerOpen = false
 
 local menuOptions = {"Load Beatmap", "Create Beatmap", "Back to Menu"}
 local selected = 1
@@ -13,11 +14,28 @@ function editor.load()
 end
 
 function editor.update(dt)
-    -- editor logic here
+    -- File picker for loading beatmaps
+    if isFilePickerOpen then
+        local Result = Slab.FileDialog({
+            Type = 'openfile',
+            Filters = {{"*.prbm", "Beatmap Files"}},
+            Title = "Select a Beatmap File"
+        })
+
+        if Result.Button == "OK" then
+            isFilePickerOpen = false
+            if Result.Files and #Result.Files > 0 then
+                bm.loadBeatmap(Result.Files[1])
+            end
+        elseif Result.Button == "Cancel" then
+            isFilePickerOpen = false
+        end
+    end
 end
+
 function editor.handleMenuSelection()
     if selected == 1 then
-        bm.loadBeatmap("") -- CHANGE THIS TO A FILE DIALOG WHEN YOU IMPLEMENT FILE LOADING
+        isFilePickerOpen = true
     elseif selected == 2 then 
         bm.createBeatmap("") -- CHANGE THIS TO A FILE DIALOG WHEN YOU IMPLEMENT FILE SAVING
     elseif selected == 3 then -- "Exit"
