@@ -1,5 +1,11 @@
 local game = require("game")
 local editor = {}
+local bm = require("beatmap")
+
+local menuOptions = {"Load Beatmap", "Create Beatmap", "Back to Menu"}
+local selected = 1
+local width = love.graphics.getWidth()
+local height = love.graphics.getHeight()
 
 function editor.load()
     -- Load editor-specific assets here
@@ -9,16 +15,48 @@ end
 function editor.update(dt)
     -- editor logic here
 end
+function editor.handleMenuSelection()
+    if selected == 1 then
+        bm.loadBeatmap("") -- CHANGE THIS TO A FILE DIALOG WHEN YOU IMPLEMENT FILE LOADING
+    elseif selected == 2 then 
+        bm.createBeatmap("") -- CHANGE THIS TO A FILE DIALOG WHEN YOU IMPLEMENT FILE SAVING
+    elseif selected == 3 then -- "Exit"
+        _G.state = "menu"
+    end
+end
 
 function editor.keypressed(key)
     if key == "p" then
-        state = "play"
+        _G.state = "play"
         game.load()
     end
-    -- Handle editor-specific key presses here
+    if key == "up" then
+            selected = selected - 1
+            if selected < 1 then selected = #menuOptions end
+        elseif key == "down" then
+            selected = selected + 1
+            if selected > #menuOptions then selected = 1 end
+        elseif key == "return" or key == "space" then
+            editor.handleMenuSelection()
+        end
 end
 
+
 function editor.draw()
+     love.graphics.setFont(love.graphics.newFont(20))
+    for i, option in ipairs(menuOptions) do
+        if i == selected then
+            love.graphics.setColor(1, 0.2, 0.9) -- Pink for selected
+            love.graphics.print("> " .. option, width/2, height/2 + (i * 30))
+        else
+            love.graphics.setColor(1, 1, 1) -- White for others
+            love.graphics.print(option, width/2, height/2 + (i * 30))
+        end
+    end
+end
+
+function drawEditorUI()
+    love.graphics.setColor(1, 1, 1) -- Reset color
     love.graphics.setColor(1, 1, 1)
     love.graphics.print("Editor Mode - Press 'P' to switch to Play Mode", 10, 10)
     
