@@ -1,5 +1,6 @@
 local game = require("game")
 local editor = require("editor")
+Slab = require("Slab")
 
 local menuOptions = {"Start Game", "Options", "Exit"}
 local selected = 1
@@ -7,6 +8,7 @@ local selected = 1
 state = "menu" -- Can be "menu", "play", or "edit"
 
 function love.load()
+    Slab.Initialize()
     love.window.setTitle("Pendulum Rhythm")
     if state == "play" then
         game.load()
@@ -16,6 +18,7 @@ function love.load()
 end
 
 function love.update(dt)
+    Slab.Update(dt)
     if state == "play" then
         game.update(dt)
     elseif state == "edit" then
@@ -31,6 +34,7 @@ function love.draw()
     elseif state == "edit" then
         editor.draw()
     end
+    Slab.Draw()
 end
 
 function love.keypressed(key)
