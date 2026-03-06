@@ -22,18 +22,18 @@ function game.load()
     music:play()
 
     beatmap = {
-        {time = 4.6},
-        {time = 5.0},
-        {time = 5.8},
-        {time = 7.0},
-        {time = 8.5},
-        {time = 9.5},
-        {time = 10.0},
-        {time = 10.25},
-        {time = 11.0},
-        {time = 12.0},
-        {time = 13.0},
-        {time = 15.0},
+        {time = 4.6, type = "n"},
+        {time = 5.0, type = "n"},
+        {time = 5.8, type = "n"},
+        {time = 7.0, type = "n"},
+        {time = 8.5, type = "n"},
+        {time = 9.5, type = "n"},
+        {time = 10.0, type = "n"},
+        {time = 10.25, type = "n"},
+        {time = 11.0, type = "n"},
+        {time = 12.0, type = "n"},
+        {time = 13.0, type = "hold", duration = 1.5},
+        {time = 15.0, type = "n"},
     }
 
     score = 0
