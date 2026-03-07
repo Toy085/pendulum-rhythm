@@ -51,7 +51,7 @@ function beatmap.createBeatmap(filename)
         beatmap = {}
     }
 
-    if filaname and filename ~= "" then
+    if filename and filename ~= "" then
         beatmap.saveBeatmap(filename, newData)
     end
 
