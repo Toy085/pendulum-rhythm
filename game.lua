@@ -18,10 +18,15 @@ function game.load()
 
     clickSound = love.audio.newSource("osu-hit-sound.mp3", "static")
 
+    songName = "Unknown Song"
+    beatmap = {}
+
     if _G.currentMapData then
         beatmap = _G.currentMapData.beatmap or {}
         
-        songName = _G.currentMapData.title or "Unknown"
+        if _G.currentMapData.title then
+            songName = _G.currentMapData.title
+        end
         
         if _G.currentMapData.audio then
             music = love.audio.newSource(_G.currentMapData.audio, "stream")
@@ -41,6 +46,10 @@ function game.load()
 end
 
 function game.update(dt)
+    if not music then
+        return 
+    end
+    
     local currentTime = music:tell()
     local timeSinceFlip = currentTime - songTimeAtLastFlip
 
