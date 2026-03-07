@@ -18,14 +18,14 @@ function editor.update(dt)
     if isFilePickerOpen then
         local Result = Slab.FileDialog({
             Type = 'openfile',
-            Filters = {{"*.prbm", "Beatmap Files"}},
+            Filters = {{"*.prbm", "Beatmap Files"}, {"*.*", "All Files"}},
             Title = "Select a Beatmap File"
         })
 
         if Result.Button == "OK" then
             isFilePickerOpen = false
             if Result.Files and #Result.Files > 0 then
-                bm.loadBeatmap(Result.Files[1])
+                _G.currentBeatmap = bm.loadBeatmap(Result.Files[1])
             end
         elseif Result.Button == "Cancel" then
             isFilePickerOpen = false
