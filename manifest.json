@@ -1,0 +1,29 @@
+{
+  "title": "WeatherGirl",
+  "artist": "Flavor Foley",
+  "mapper": "YourName",
+  "bpm": 120,
+  "difficulty": 3,
+  "audio": "song.mp3",
+  "image": "bg.jpg",
+  "previewStart": 30.5,
+  "previewDuration": 15.0,
+  "beatmapVersion": 1,
+  "beatmap": [
+    { "time": 4.6, "type": "n" },
+    { "time": 5.0, "type": "nf" },
+    { "time": 5.8, "type": "n" },
+    { "time": 7.0, "type": "nf" },
+    { "time": 8.5, "type": "n" },
+    { "time": 9.5, "type": "n" },
+    { "time": 10.0, "type": "n" },
+    { "time": 10.25, "type": "n" },
+    { "time": 11.0, "type": "nf" },
+    { "time": 11.5, "type": "nf" },
+    { "time": 11.7, "type": "nf" },
+    { "time": 12.0, "type": "nf" },
+    { "time": 13.0, "type": "hold", "duration": 1.5 },
+    { "time": 15.0, "type": "n" },
+    { "time": 17.0, "type": "t", "distance": 1.5 }
+  ]
+}

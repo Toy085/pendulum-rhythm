@@ -21,22 +21,7 @@ function game.load()
     songName = "WeatherGirl - Flavor Foley"
     music:play()
 
-    beatmap = {
-        {time = 4.6, type = "n"},
-        {time = 5.0, type = ""},
-        {time = 5.8, type = "n"},
-        {time = 7.0, type = ""},
-        {time = 8.5, type = "n"},
-        {time = 9.5, type = "n"},
-        {time = 10.0, type = "n"},
-        {time = 10.25, type = "n"},
-        {time = 11.0, type = ""},
-        {time = 11.5, type = ""},
-        {time = 11.7, type = ""},
-        {time = 12.0, type = ""},
-        {time = 13.0, type = "hold", duration = 1.5},
-        {time = 15.0, type = "n"},
-    }
+    beatmap = {}
 
     score = 0
     combo = 0
