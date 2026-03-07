@@ -2,6 +2,7 @@ local game = require("game")
 local editor = require("editor")
 Slab = require("Slab")
 json = require ("json")
+local levelselect = require("levelselect")
 
 local menuOptions = {"Start Game", "Options", "Exit"}
 local selected = 1
@@ -22,6 +23,8 @@ function love.update(dt)
     Slab.Update(dt)
     if state == "play" then
         game.update(dt)
+    elseif state == "levelselect" then
+        levelselect.update(dt)
     elseif state == "edit" then
         editor.update(dt)
     end
@@ -32,6 +35,8 @@ function love.draw()
         drawMenu()
     elseif state == "play" then
         game.draw()
+    elseif state == "levelselect" then
+        levelselect.draw()
     elseif state == "edit" then
         editor.draw()
     end
@@ -55,6 +60,8 @@ function love.keypressed(key)
         end
     elseif state == "play" then
         game.keypressed(key)
+    elseif state == "levelselect" then
+        levelselect.keypressed(key)
     elseif state == "edit" then
         editor.keypressed(key)
     end
@@ -85,8 +92,8 @@ end
 
 function handleMenuSelection()
     if selected == 1 then -- Start Game
-        state = "play"
-        game.load()
+        levelselect.load()
+        state = "levelselect"
     elseif selected == 2 then -- Options
         state = "edit" -- CHANGE  THIS TO "options" WHEN YOU IMPLEMENT OPTIONS
         editor.load() -- REMOVE THIS LINE WHEN YOU IMPLEMENT OPTIONS

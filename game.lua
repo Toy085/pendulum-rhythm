@@ -17,11 +17,17 @@ function game.load()
     angleAtLastFlip = 0
 
     clickSound = love.audio.newSource("osu-hit-sound.mp3", "static")
-    music = love.audio.newSource("song.mp3", "stream")
-    songName = "WeatherGirl - Flavor Foley"
-    music:play()
 
-    beatmap = {}
+    if _G.currentMapData then
+        beatmap = _G.currentMapData.beatmap or {}
+        
+        songName = _G.currentMapData.title or "Unknown"
+        
+        if _G.currentMapData.audio then
+            music = love.audio.newSource(_G.currentMapData.audio, "stream")
+            music:play()
+        end
+    end
 
     score = 0
     combo = 0
