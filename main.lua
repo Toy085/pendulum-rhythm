@@ -1,6 +1,7 @@
 local game = require("game")
 local editor = require("editor")
 Slab = require("Slab")
+json = require ("json")
 
 local menuOptions = {"Start Game", "Options", "Exit"}
 local selected = 1

@@ -1,4 +1,3 @@
-local json = require("json")
 local beatmap = {}
 
 function beatmap.loadBeatmap(filename)
