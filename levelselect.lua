@@ -25,6 +25,14 @@ function levelselect.update(dt)
             end
         elseif Result.Button == "Cancel" then
             isFilePickerOpen = false
+            local data = bm.loadBeatmap("wei.prbm") 
+            if data then
+                _G.currentMapData = data
+                _G.state = "play"
+                game.load()
+            else
+                _G.state = "menu"
+    end
         end
     end
 end
