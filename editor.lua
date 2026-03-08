@@ -1,7 +1,9 @@
 local game = require("game")
 local editor = {}
 local bm = require("beatmap")
+
 local isFilePickerOpen = false
+local showSongInfoWindow = false
 
 local menuOptions = {"Load Beatmap", "Create Beatmap", "Back to Menu"}
 local selected = 1
@@ -26,6 +28,7 @@ function editor.update(dt)
             isFilePickerOpen = false
             if Result.Files and #Result.Files > 0 then
                 _G.currentBeatmap = bm.loadBeatmap(Result.Files[1])
+                _G.currentMapData = bm.loadBeatmap(Result.Files[1])
             end
         elseif Result.Button == "Cancel" then
             isFilePickerOpen = false
@@ -37,7 +40,8 @@ function editor.handleMenuSelection()
     if selected == 1 then
         isFilePickerOpen = true
     elseif selected == 2 then 
-        bm.createBeatmap("") -- CHANGE THIS TO A FILE DIALOG WHEN YOU IMPLEMENT FILE SAVING
+        --bm.createBeatmap("") -- CHANGE THIS TO A FILE DIALOG WHEN YOU IMPLEMENT FILE SAVING
+        showSongInfoWindow = true
     elseif selected == 3 then -- "Exit"
         _G.state = "menu"
     end
@@ -71,6 +75,10 @@ function editor.draw()
             love.graphics.print(option, width/2, height/2 + (i * 30))
         end
     end
+
+    if showSongInfoWindow then
+        drawEditorSongInfo()
+    end
 end
 
 function drawEditorUI()
@@ -94,6 +102,14 @@ function drawEditorUI()
     love.graphics.line(centerX, centerY, px, py)
     -- Reset line width
     love.graphics.setLineWidth(1)
+end
+
+function drawEditorSongInfo()
+    Slab.BeginWindow("Song Info", {Title = "Song Information", AutoSizeWindow = true, Draggable = true, Resizable = true})
+    Slab.Input("Song Name", {Text = _G.currentBeatmap and _G.currentBeatmap.title or ""})
+    Slab.Input("Artist", {Text = _G.currentBeatmap and _G.currentBeatmap.artist or ""})
+    Slab.Input("Difficulty", {Text = _G.currentBeatmap and _G.currentBeatmap.difficulty or ""})
+    Slab.EndWindow()
 end
 
 return editor
