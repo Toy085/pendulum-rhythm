@@ -82,6 +82,11 @@ function editor.draw()
 end
 
 function drawEditorUI()
+    if not centerX then 
+        game.load()
+        love.window.setTitle("Pendulum Rhythm - Editor Mode")
+        return
+    end
     love.graphics.setColor(1, 1, 1) -- Reset color
     love.graphics.setColor(1, 1, 1)
     love.graphics.print("Editor Mode - Press 'P' to switch to Play Mode", 10, 10)

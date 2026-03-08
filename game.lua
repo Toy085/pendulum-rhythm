@@ -19,6 +19,7 @@ function game.load()
     clickSound = love.audio.newSource("osu-hit-sound.mp3", "static")
 
     songName = "Unknown Song"
+    artistName = "Unknown Artist"
     beatmap = {}
 
     if _G.currentMapData then
@@ -26,6 +27,10 @@ function game.load()
         
         if _G.currentMapData.title then
             songName = _G.currentMapData.title
+        end
+
+        if _G.currentMapData.artist then
+            artistName = _G.currentMapData.artist
         end
         
         if _G.currentMapData.audio then
@@ -43,7 +48,7 @@ function game.load()
     feedbackScale = 0
     feedbackAlpha = 0
 
-    love.window.setTitle("Pendulum Rhythm - Playing: " .. songName .. " By " .. (_G.currentMapData.artist or "Unknown Artist"))
+    love.window.setTitle("Pendulum Rhythm - Playing: " .. songName .. " By " .. artistName)
 end
 
 function game.update(dt)
