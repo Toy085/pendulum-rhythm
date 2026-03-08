@@ -12,7 +12,7 @@ function levelselect.update(dt)
     if isFilePickerOpen then
         local Result = Slab.FileDialog({
             Type = 'openfile',
-            Filters = {{"*.prbm", "Beatmap Files"}, {"*.*", "All Files"}},
+            Filters = {{"*.prbm", "Beatmap Files"}},
             Title = "Select a Beatmap File"
         })
 

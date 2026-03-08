@@ -29,7 +29,8 @@ function game.load()
         end
         
         if _G.currentMapData.audio then
-            music = love.audio.newSource(_G.currentMapData.audio, "stream")
+            local audioPath = "current_map/" .. _G.currentMapData.audio
+            music = love.audio.newSource(audioPath, "stream")
             music:play()
         end
     end
