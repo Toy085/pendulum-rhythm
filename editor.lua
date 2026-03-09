@@ -20,7 +20,7 @@ function editor.update(dt)
     if isFilePickerOpen then
         local Result = Slab.FileDialog({
             Type = 'openfile',
-            Filters = {{"*.prbm", "Beatmap Files"}, {"*.*", "All Files"}},
+            Filters = {{"*.prbm", "Beatmap Files"}},
             Title = "Select a Beatmap File"
         })
 
@@ -34,13 +34,29 @@ function editor.update(dt)
             isFilePickerOpen = false
         end
     end
+    if isFilePickerOpenSave then
+        local Result = Slab.FileDialog({
+            Type = 'savefile',
+            Filters = {{"*.prbm", "Beatmap Files"}},
+            Title = "Create a Beatmap File"
+        })
+
+        if Result.Button == "OK" then
+            isFilePickerOpenSave = false
+            if Result.Files and #Result.Files > 0 then
+                -- showSongInfoWindow = true
+            end
+        elseif Result.Button == "Cancel" then
+            isFilePickerOpenSave = false
+        end
+    end
 end
 
 function editor.handleMenuSelection()
     if selected == 1 then
         isFilePickerOpen = true
-    elseif selected == 2 then 
-        --bm.createBeatmap("") -- CHANGE THIS TO A FILE DIALOG WHEN YOU IMPLEMENT FILE SAVING
+    elseif selected == 2 then
+        -- isFilePickerOpenSave = true
         showSongInfoWindow = true
     elseif selected == 3 then -- "Exit"
         _G.state = "menu"
