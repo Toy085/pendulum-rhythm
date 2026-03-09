@@ -16,6 +16,8 @@ function love.load()
         game.load()
     elseif state == "edit" then
         editor.load()
+    elseif state == "levelselect" then
+        levelselect.load()
     end
 end
 

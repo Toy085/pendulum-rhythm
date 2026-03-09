@@ -5,7 +5,7 @@ local game = require("game")
 local isFilePickerOpen = true
 
 function levelselect.load()
-    -- Load beatmaps
+    isFilePickerOpen = true
 end
 
 function levelselect.update(dt)
