@@ -62,12 +62,15 @@ function game.update(dt)
 
     for i = #beatmap, 1, -1 do
         if currentTime > beatmap[i].time + hitWindow then
+            local missedNote = beatmap[i]
             table.remove(beatmap, i)
             combo = 0
             feedbackText = "Miss!"
             feedbackScale = 2.5
             feedbackAlpha = 1
-            flipPlayer()
+            if missedNote.type == "n" then
+                flipPlayer()
+            end
         end
     end
     
@@ -156,7 +159,7 @@ function game.draw()
     love.graphics.setColor(1, 1, 1, 0.2 * playerCircleSize / 25)
     love.graphics.draw(backgroundImage, 0, 0, 0, love.graphics.getWidth() / backgroundImage:getWidth(), love.graphics.getHeight() / backgroundImage:getHeight())
     love.graphics.setColor(1, 1, 1, 1)
-    
+
     -- Orbit circle
     love.graphics.setLineWidth(2)
     love.graphics.setColor(1, 1, 1)
