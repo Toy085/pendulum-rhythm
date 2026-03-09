@@ -20,6 +20,7 @@ function game.load()
 
     songName = "Unknown Song"
     artistName = "Unknown Artist"
+    backgroundImage = love.graphics.newImage("bg.png")
     beatmap = {}
 
     if _G.currentMapData then
@@ -151,6 +152,10 @@ function game.keypressed(key)
 end
 
 function game.draw()
+    -- Background
+    love.graphics.setColor(1, 1, 1, 0.2 * playerCircleSize / 25)
+    love.graphics.draw(backgroundImage, 0, 0, 0, love.graphics.getWidth() / backgroundImage:getWidth(), love.graphics.getHeight() / backgroundImage:getHeight())
+    love.graphics.setColor(1, 1, 1, 1)
     -- Orbit circle
     love.graphics.setLineWidth(2)
     love.graphics.setColor(1, 1, 1)
