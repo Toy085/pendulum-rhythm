@@ -210,11 +210,11 @@ function game.draw()
 
             local alpha = 1 - (timeRemaining / 1.5)
 
-            love.graphics.setColor(1, 1, 0, alpha - 0.2)
+            love.graphics.setColor(1, 1, 1 * (i - 1), alpha - 0.2)
             love.graphics.circle("fill", nx, ny, 20)
 
             love.graphics.setColor(0, 0, 0, alpha) -- Black text
-            love.graphics.printf(tostring(i), nx - 15, ny - 10, 30, "center")
+            love.graphics.printf(tostring(i), nx - 20, ny - 10, 30, "center", 0, 1.5, 1.5)
             
             love.graphics.setColor(1, 1, 1)
         end
