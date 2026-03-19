@@ -61,6 +61,14 @@ function game.update(dt)
     local timeSinceFlip = currentTime - songTimeAtLastFlip
 
     for i = #beatmap, 1, -1 do
+        local note = beatmap[i]
+
+        if currentTime >= note.time and not note.hasFlipped then
+            note.hasFlipped = true 
+            if note.type == "n" then
+                flipPlayer()
+            end
+        end
         if currentTime > beatmap[i].time + hitWindow then
             local missedNote = beatmap[i]
             table.remove(beatmap, i)
@@ -68,9 +76,6 @@ function game.update(dt)
             feedbackText = "Miss!"
             feedbackScale = 2.5
             feedbackAlpha = 1
-            if missedNote.type == "n" then
-                flipPlayer()
-            end
         end
     end
     
@@ -120,8 +125,11 @@ function game.keypressed(key)
 
             table.remove(beatmap, noteIndex)
 
-            if hitNote.type == "n" then
-                flipPlayer()
+            if not hitNote.hasFlipped then
+                hitNote.hasFlipped = true 
+                if hitNote.type == "n" then
+                    flipPlayer()
+                end
             end
 
             combo = combo + 1
