@@ -28,6 +28,7 @@ function editor.update(dt)
             isFilePickerOpen = false
             if Result.Files and #Result.Files > 0 then
                 _G.currentBeatmap = bm.loadBeatmap(Result.Files[1])
+                showSongInfoWindow = true
             end
         elseif Result.Button == "Cancel" then
             isFilePickerOpen = false
@@ -43,7 +44,7 @@ function editor.update(dt)
         if Result.Button == "OK" then
             isFilePickerOpenSave = false
             if Result.Files and #Result.Files > 0 then
-                showSongInfoWindow = true
+                -- showSongInfoWindow = true
             end
         elseif Result.Button == "Cancel" then
             isFilePickerOpenSave = false
@@ -125,10 +126,33 @@ function drawEditorUI()
 end
 
 function drawEditorSongInfo()
+    _G.currentBeatmap = _G.currentBeatmap or bm.createBeatmap()
+
     Slab.BeginWindow("Song Info", {Title = "Song Information", AutoSizeWindow = true, Draggable = true, Resizable = true})
     Slab.Input("Song Name", {Text = _G.currentBeatmap and _G.currentBeatmap.title or ""})
     Slab.Input("Artist", {Text = _G.currentBeatmap and _G.currentBeatmap.artist or ""})
     Slab.Input("Difficulty", {Text = _G.currentBeatmap and _G.currentBeatmap.difficulty or ""})
+
+    Slab.Separator()
+
+    if Slab.Button("Save Beatmap") then
+        local savePath = _G.currentMountedMap or "new_beatmap.prbm"
+        
+        local success = bm.saveBeatmap(savePath, _G.currentBeatmap)
+        if success then
+            print("Saved successfully to " .. savePath)
+            showSongInfoWindow = false 
+        else
+            print("Failed to save!")
+        end
+    end
+
+    Slab.SameLine()
+
+    if Slab.Button("Close") then
+        showSongInfoWindow = false
+    end
+    
     Slab.EndWindow()
 end
 
