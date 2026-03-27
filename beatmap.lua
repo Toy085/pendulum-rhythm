@@ -37,6 +37,7 @@ function beatmap.loadBeatmap(filename)
 end
 
 function beatmap.saveBeatmap(filename, beatmapData)
+    local os = love.system.getOS()
     local file = io.open(filename, "w")
 
     if not file then
