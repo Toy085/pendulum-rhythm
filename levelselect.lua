@@ -19,7 +19,7 @@ function levelselect.update(dt)
         if Result.Button == "OK" then
             isFilePickerOpen = false
             if Result.Files and #Result.Files > 0 then
-                _G.currentMapData = bm.loadBeatmap(Result.Files[1])
+                _G.currentBeatmap = bm.loadBeatmap(Result.Files[1])
                 _G.state = "play"
                 game.load()
             end
@@ -27,7 +27,7 @@ function levelselect.update(dt)
             isFilePickerOpen = false
             local data = bm.loadBeatmap("wei.prbm") 
             if data then
-                _G.currentMapData = data
+                _G.currentBeatmap = data
                 _G.state = "play"
                 game.load()
             else

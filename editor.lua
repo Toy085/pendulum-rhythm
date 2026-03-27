@@ -28,7 +28,6 @@ function editor.update(dt)
             isFilePickerOpen = false
             if Result.Files and #Result.Files > 0 then
                 _G.currentBeatmap = bm.loadBeatmap(Result.Files[1])
-                _G.currentMapData = bm.loadBeatmap(Result.Files[1])
             end
         elseif Result.Button == "Cancel" then
             isFilePickerOpen = false
@@ -44,7 +43,7 @@ function editor.update(dt)
         if Result.Button == "OK" then
             isFilePickerOpenSave = false
             if Result.Files and #Result.Files > 0 then
-                -- showSongInfoWindow = true
+                showSongInfoWindow = true
             end
         elseif Result.Button == "Cancel" then
             isFilePickerOpenSave = false

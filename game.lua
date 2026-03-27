@@ -23,19 +23,19 @@ function game.load()
     backgroundImage = love.graphics.newImage("bg.png")
     beatmap = {}
 
-    if _G.currentMapData then
-        beatmap = _G.currentMapData.beatmap or {}
+    if _G.currentBeatmap then
+        beatmap = _G.currentBeatmap.beatmap or {}
         
-        if _G.currentMapData.title then
-            songName = _G.currentMapData.title
+        if _G.currentBeatmap.title then
+            songName = _G.currentBeatmap.title
         end
 
-        if _G.currentMapData.artist then
-            artistName = _G.currentMapData.artist
+        if _G.currentBeatmap.artist then
+            artistName = _G.currentBeatmap.artist
         end
         
-        if _G.currentMapData.audio then
-            local audioPath = "current_map/" .. _G.currentMapData.audio
+        if _G.currentBeatmap.audio then
+            local audioPath = "current_map/" .. _G.currentBeatmap.audio
             music = love.audio.newSource(audioPath, "stream")
             music:play()
         end
