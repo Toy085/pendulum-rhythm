@@ -3,7 +3,6 @@ local editor = require("editor")
 Slab = require("Slab")
 json = require ("json")
 nativefs = require("nativefs")
-print(nativefs.getWorkingDirectory())
 local levelselect = require("levelselect")
 
 local menuOptions = {"Start Game", "Options", "Edit Map", "Exit"}
