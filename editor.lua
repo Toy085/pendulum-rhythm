@@ -126,17 +126,38 @@ function drawEditorUI()
 end
 
 function drawEditorSongInfo()
-    _G.currentBeatmap = _G.currentBeatmap or bm.createBeatmap()
+    if not _G.currentBeatmap or type(_G.currentBeatmap) ~= "table" then
+        _G.currentBeatmap = bm.createBeatmap() or {}
+    end
 
     Slab.BeginWindow("Song Info", {Title = "Song Information", AutoSizeWindow = true, Draggable = true, Resizable = true})
-    Slab.Input("Song Name", {Text = _G.currentBeatmap and _G.currentBeatmap.title or ""})
-    Slab.Input("Artist", {Text = _G.currentBeatmap and _G.currentBeatmap.artist or ""})
-    Slab.Input("Difficulty", {Text = _G.currentBeatmap and _G.currentBeatmap.difficulty or ""})
+
+    local map = _G.currentBeatmap
+
+    if Slab.Input("Song Name", {Text = map.title or ""}) then
+        map.title = Slab.GetInputText()
+    end
+
+    if Slab.Input("Audio Path", {Text = map.audio or ""}) then
+        map.audio = Slab.GetInputText()
+    end
+    
+    if Slab.Input("Image Path", {Text = map.image or ""}) then
+        map.image = Slab.GetInputText()
+    end
+    
+    if Slab.Input("Artist", {Text = map.artist or ""}) then
+        map.artist = Slab.GetInputText()
+    end
+
+    if Slab.Input("Difficulty", {Text = map.difficulty or ""}) then
+        map.difficulty = Slab.GetInputText()
+    end
 
     Slab.Separator()
 
     if Slab.Button("Save Beatmap") then
-        local savePath = _G.currentMountedMap or "new_beatmap.prbm"
+        local savePath = _G.originalFilename or "new_beatmap.prbm"
         
         local success = bm.saveBeatmap(savePath, _G.currentBeatmap)
         if success then
