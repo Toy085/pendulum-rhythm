@@ -70,6 +70,12 @@ function love.keypressed(key)
     end
 end
 
+function love.mousepressed(x, y, button)
+    if state == "edit" and editor.mousepressed then
+        editor.mousepressed(x, y, button)
+    end
+end
+
 function drawMenu()
     love.window.setTitle("Pendulum Rhythm")
     local width = love.graphics.getWidth()
