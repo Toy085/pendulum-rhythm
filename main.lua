@@ -5,7 +5,8 @@ json = require ("json")
 nativefs = require("nativefs")
 local levelselect = require("levelselect")
 
-local menuOptions = {"Start Game", "Options", "Edit Map", "Exit"}
+--local menuOptions = {"Start Game", "Options", "Edit Map", "Exit"}
+local menuOptions = {"Start Game", "Exit"}
 local selected = 1
 
 state = "menu" -- Can be "menu", "play", or "edit"
