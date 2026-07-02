@@ -1,22 +1,41 @@
 local beatmap = {}
 
 function beatmap.loadBeatmap(filename)
-    local file = io.open(filename, "rb")
-    if not file then
-        print("Could not open beatmap file from OS: " .. filename)
+    local rawZipData = nil
+
+    -- 1. Build absolute path for loose files next to your compiled game.exe
+    local baseDir = love.filesystem.getSourceBaseDirectory()
+    local externalPath = baseDir .. "/" .. filename
+
+    -- 2. Securely ingest the binary zip from the correct location
+    if nativefs.getInfo(externalPath) then
+        rawZipData = nativefs.read(externalPath)     -- Fused EXE: External map next to exe
+    elseif nativefs.getInfo(filename) then
+        rawZipData = nativefs.read(filename)         -- IDE: Local development folder
+    elseif love.filesystem.getInfo(filename) then
+        rawZipData = love.filesystem.read(filename)  -- Fused EXE: Embedded default maps
+    end
+
+    -- If no data could be retrieved, fail gracefully without crashing
+    if not rawZipData then
+        print("Could not find or read beatmap file: " .. filename)
         return nil
     end
-    local rawZipData = file:read("*a")
-    file:close()
 
+    -- 3. Write the raw zip file into LÖVE's sandboxed local write directory
     local tempFile = "temp_map.zip"
     love.filesystem.write(tempFile, rawZipData)
 
+    -- Force clean up any leftover old mounts to prevent folder locked errors
+    love.filesystem.unmount("current_map")
+
+    -- 4. Mount the sandbox archive into the virtual filesystem
     if not love.filesystem.mount(tempFile, "current_map") then
         print("Could not mount beatmap archive.")
         return nil
     end
 
+    -- 5. Reach INSIDE the successfully mounted zip to read the actual JSON text file
     local contents, err = love.filesystem.read("current_map/manifest.json")
     if not contents then
         print("Could not read manifest.json inside the beatmap: " .. tostring(err))
@@ -24,8 +43,8 @@ function beatmap.loadBeatmap(filename)
         return nil
     end
 
+    -- 6. Safely decode the inner JSON file content string
     local success, data = pcall(json.decode, contents)
-
     if success then
         _G.currentMountedMap = tempFile 
         _G.originalFilename = filename
