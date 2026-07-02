@@ -17,3 +17,6 @@ Press space when the pendulum overlaps the notes for a prefect score.
 ## Screenshots
 <img width="601" height="474" alt="image" src="https://github.com/user-attachments/assets/f8a57fb1-da06-4fb8-a8fc-8248bfc3c881" />
 <img width="601" height="474" alt="image" src="https://github.com/user-attachments/assets/995b76f6-5924-46ce-a461-6698570eaf05" />
+
+## AI use
+AI has been used in beatmap.lua, game.lua, README_save_beatmap.md and save_beatmap.py.
