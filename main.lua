@@ -101,8 +101,8 @@ end
 
 function handleMenuSelection()
     if selected == 1 then -- Start Game
-        levelselect.load()
         state = "levelselect"
+        levelselect.load()
     elseif selected == 2 then
         -- Add options 
     elseif selected == 3 then

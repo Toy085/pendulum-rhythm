@@ -49,7 +49,8 @@ function game.load()
     feedbackScale = 0
     feedbackAlpha = 0
 
-    love.window.setTitle("Pendulum Rhythm - Playing: " .. songName .. " By " .. artistName)
+    --love.window.setTitle("Pendulum Rhythm - Playing: " .. songName .. " By " .. artistName)
+    love.window.setTitle("Pendulum Rhythm - In Game")
 end
 
 function game.update(dt)

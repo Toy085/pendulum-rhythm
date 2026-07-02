@@ -2,10 +2,19 @@ local levelselect = {}
 local bm = require("beatmap")
 local game = require("game")
 
-local isFilePickerOpen = true
+local isFilePickerOpen = false
 
 function levelselect.load()
-    isFilePickerOpen = true
+    --isFilePickerOpen = true
+    isFilePickerOpen = false
+    local data = bm.loadBeatmap("wei.prbm") 
+    if data then
+        _G.currentBeatmap = data
+        _G.state = "play"
+        game.load()
+    else
+        _G.state = "menu"
+    end
 end
 
 function levelselect.update(dt)
