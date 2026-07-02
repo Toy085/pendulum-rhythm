@@ -7,7 +7,7 @@ local isFilePickerOpen = false
 function levelselect.load()
     --isFilePickerOpen = true
     isFilePickerOpen = false
-    local data = bm.loadBeatmap("wei.prbm") 
+    local data = bm.loadBeatmap("song.prbm") 
     if data then
         _G.currentBeatmap = data
         _G.state = "play"
