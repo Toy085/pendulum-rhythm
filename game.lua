@@ -53,24 +53,19 @@ function game.load()
 end
 
 function game.update(dt)
-    if not music then
-        return 
-    end
+    if not music then return end
     
     local currentTime = music:tell()
     local timeSinceFlip = currentTime - songTimeAtLastFlip
 
+    angle = angleAtLastFlip + (timeSinceFlip * playerSpeed * playerDirection)
+    px = centerX + math.cos(angle) * radius
+    py = centerY + math.sin(angle) * radius
+
+    -- Only handle misses here; hits are handled in keypressed
     for i = #beatmap, 1, -1 do
         local note = beatmap[i]
-
-        if currentTime >= note.time and not note.hasFlipped then
-            note.hasFlipped = true 
-            if note.type == "n" then
-                flipPlayer()
-            end
-        end
-        if currentTime > beatmap[i].time + hitWindow then
-            local missedNote = beatmap[i]
+        if currentTime > note.time + hitWindow then
             table.remove(beatmap, i)
             combo = 0
             feedbackText = "Miss!"
@@ -78,26 +73,15 @@ function game.update(dt)
             feedbackAlpha = 1
         end
     end
-    
-    angle = angleAtLastFlip + (timeSinceFlip * playerSpeed * playerDirection)
-
-    px = centerX + math.cos(angle) * radius
-    py = centerY + math.sin(angle) * radius
 
     if playerCircleSize > 20 then
         playerCircleSize = playerCircleSize - dt * 40
-        if playerCircleSize < 20 then
-            playerCircleSize = 20
-        end
+        if playerCircleSize < 20 then playerCircleSize = 20 end
     end
     if feedbackAlpha > 0 then
-        -- Shrink the scale back toward 1
-        if feedbackScale > 1 then
-            feedbackScale = feedbackScale - dt * 5
-        end
-        -- Fade out the alpha
-        feedbackAlpha = feedbackAlpha - dt * 2 
-    end 
+        if feedbackScale > 1 then feedbackScale = feedbackScale - dt * 5 end
+        feedbackAlpha = feedbackAlpha - dt * 2
+    end
 end
 
 function game.keypressed(key)
@@ -128,7 +112,7 @@ function game.keypressed(key)
             if not hitNote.hasFlipped then
                 hitNote.hasFlipped = true 
                 if hitNote.type == "n" then
-                    flipPlayer()
+                    flipPlayer(currentTime)
                 end
             end
 
@@ -196,7 +180,6 @@ function game.draw()
         local textWidth = centerX * 2
         local textHeight = font:getHeight()
 
-        -- printf(text, x, y, limit, align, r, sx, sy, ox, oy)
         love.graphics.printf(feedbackText, 0, centerY - 100, textWidth / feedbackScale, "center", 0, feedbackScale, feedbackScale, 0, textHeight / 2)
     end
 
@@ -234,10 +217,9 @@ function game.draw()
     end
 end
 
-function flipPlayer()
+function flipPlayer(currentTime)
     angleAtLastFlip = angle
-    songTimeAtLastFlip = music:tell()
-
+    songTimeAtLastFlip = currentTime
     playerDirection = -playerDirection
 end
 
